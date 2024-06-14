@@ -23,7 +23,7 @@ export const AppProvider = ({ children }) => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/users/me', {
+      const res = await fetch('https://backend-6-vk60.onrender.com/api/users/me', {
         headers: {
           'x-auth-token': token,
         },
@@ -48,7 +48,7 @@ export const AppProvider = ({ children }) => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/items', {
+      const res = await fetch('https://backend-6-vk60.onrender.com/api/items', {
         headers: {
           'x-auth-token': token,
         },
@@ -70,7 +70,7 @@ export const AppProvider = ({ children }) => {
   }, [token]);
 
   useEffect(() => {
-    const socket = io('http://localhost:5000');
+    const socket = io('https://backend-6-vk60.onrender.com');
 
     if (token) {
       fetchUser();
@@ -89,7 +89,7 @@ export const AppProvider = ({ children }) => {
 
   const loginUser = async (email, password) => {
     try {
-      const res = await fetch('http://localhost:5000/api/users/login', {
+      const res = await fetch('https://backend-6-vk60.onrender.com/api/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ export const AppProvider = ({ children }) => {
 
   const registerUser = async (username, email, password) => {
     try {
-      const res = await fetch('http://localhost:5000/api/users/register', {
+      const res = await fetch('https://backend-6-vk60.onrender.com/api/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ export const AppProvider = ({ children }) => {
 
   const reportLostItem = async (item) => {
     try {
-      const res = await fetch('http://localhost:5000/api/items/report', {
+      const res = await fetch('https://backend-6-vk60.onrender.com/api/items/report', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -168,7 +168,7 @@ export const AppProvider = ({ children }) => {
 
   const reportFoundItem = async (item) => {
     try {
-      const res = await fetch('http://localhost:5000/api/items/report', {
+      const res = await fetch('https://backend-6-vk60.onrender.com/api/items/report', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -191,7 +191,7 @@ export const AppProvider = ({ children }) => {
 
   const claimItem = async (itemId) => {
     try {
-      const res = await fetch('http://localhost:5000/api/items/claim', {
+      const res = await fetch('https://backend-6-vk60.onrender.com/api/items/claim', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -223,7 +223,7 @@ export const AppProvider = ({ children }) => {
 
   const markItemFound = async (itemId) => {
     try {
-      const res = await fetch('http://localhost:5000/api/items/found', {
+      const res = await fetch('https://backend-6-vk60.onrender.com/api/items/found', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -255,7 +255,7 @@ export const AppProvider = ({ children }) => {
 
   const addComment = async (item, comment) => {
     try {
-      const res = await fetch('http://localhost:5000/api/items/comment', {
+      const res = await fetch('https://backend-6-vk60.onrender.com/api/items/comment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
