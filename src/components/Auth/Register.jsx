@@ -1,17 +1,20 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Container, Typography } from '@mui/material';
+import { useAppContext } from '../Context';
 
 const Register = () => {
+  const { registerUser } = useAppContext();
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Mock registration logic
-    navigate('/report-lost');
+    await registerUser(username, email, password);
+    navigate('/');
   };
 
   return (
@@ -20,36 +23,34 @@ const Register = () => {
       <form onSubmit={handleSubmit}>
         <TextField
           label="Username"
+          variant="outlined"
           fullWidth
+          margin="normal"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          required
-          margin="normal"
         />
         <TextField
           label="Email"
-          type="email"
+          variant="outlined"
           fullWidth
+          margin="normal"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
-          margin="normal"
         />
         <TextField
           label="Password"
-          type="password"
+          variant="outlined"
           fullWidth
+          margin="normal"
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
-          margin="normal"
         />
-        <Button type="submit" variant="contained" color="primary" fullWidth>
-          Register
-        </Button>
+        <Button variant="contained" color="primary" type="submit">Register</Button>
       </form>
     </Container>
   );
 };
 
 export default Register;
+

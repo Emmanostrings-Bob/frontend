@@ -1,15 +1,19 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Container, Typography } from '@mui/material';
+import { useAppContext } from '../Context';
 
 const Login = () => {
+  const { loginUser } = useAppContext();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/report-lost');
+    await loginUser(email, password);
+    navigate('/');
   };
 
   return (
@@ -18,25 +22,22 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <TextField
           label="Email"
-          type="email"
+          variant="outlined"
           fullWidth
+          margin="normal"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
-          margin="normal"
         />
         <TextField
           label="Password"
-          type="password"
+          variant="outlined"
           fullWidth
+          margin="normal"
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
-          margin="normal"
         />
-        <Button type="submit" variant="contained" color="primary" fullWidth>
-          Login
-        </Button>
+        <Button variant="contained" color="primary" type="submit">Login</Button>
       </form>
     </Container>
   );

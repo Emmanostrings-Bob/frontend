@@ -1,41 +1,48 @@
-import React from 'react';
-import { Container, Card, CardContent, Typography, Button, TextField } from '@mui/material';
-import { useAppContext } from '../../Context/Context';
+import React, { useState } from 'react';
+import { Container, Typography, TextField } from '@mui/material';
+import { useAppContext } from '../Context';
+import CardComponent from '../CardComponent/CardComponent';
 
 const Home = () => {
   const { lostItems, foundItems, claimItem, markItemFound } = useAppContext();
+  const [query, setQuery] = useState('');
+
+  const filteredLostItems = lostItems.filter(item => item.title.toLowerCase().includes(query.toLowerCase()));
+  const filteredFoundItems = foundItems.filter(item => item.title.toLowerCase().includes(query.toLowerCase()));
 
   return (
     <Container>
       <Typography variant="h4" gutterBottom>Home</Typography>
-      
+      <TextField
+        label="Search"
+        fullWidth
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        margin="normal"
+      />
+
       <Typography variant="h5" gutterBottom>Lost Items</Typography>
-      {lostItems.map((item, index) => (
-        <Card key={index} sx={{ marginBottom: 2 }}>
-          <CardContent>
-            <Typography variant="h6">{item.title}</Typography>
-            <Typography>{item.description}</Typography>
-            <Typography variant="body2">Reported by: {item.username}</Typography>
-            <Button onClick={() => markItemFound(item)}>Found?</Button>
-            <TextField label="Comment" fullWidth margin="normal" />
-          </CardContent>
-        </Card>
+      {filteredLostItems.map((item, index) => (
+        <CardComponent
+          key={index}
+          item={item}
+          onAction={markItemFound}
+          actionLabel="Found?"
+        />
       ))}
 
       <Typography variant="h5" gutterBottom>Found Items</Typography>
-      {foundItems.map((item, index) => (
-        <Card key={index} sx={{ marginBottom: 2 }}>
-          <CardContent>
-            <Typography variant="h6">{item.title}</Typography>
-            <Typography>{item.description}</Typography>
-            <Typography variant="body2">Reported by: {item.username}</Typography>
-            <Button onClick={() => claimItem(item)}>Claim</Button>
-            <TextField label="Comment" fullWidth margin="normal" />
-          </CardContent>
-        </Card>
+      {filteredFoundItems.map((item, index) => (
+        <CardComponent
+          key={index}
+          item={item}
+          onAction={claimItem}
+          actionLabel="Claim"
+        />
       ))}
     </Container>
   );
 };
 
 export default Home;
+
